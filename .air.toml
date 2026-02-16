@@ -4,8 +4,8 @@ tmp_dir = "tmp"
 
 [build]
   args_bin = []
-  bin = "tmp\\main.exe"
-  cmd = "go build -o ./tmp/main.exe ."
+  bin = "tmp/main"
+  cmd = "go build -o ./tmp/main ."
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []
@@ -46,4 +46,4 @@ tmp_dir = "tmp"
   keep_scroll = true
 
 [http]
-  addr = ":8080" 
+  addr = ":8080"

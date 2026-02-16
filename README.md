@@ -1,36 +1,57 @@
-# Go-HTMX-Tailwind Scaffolding
-Welcome to the Go-HTMX-Tailwind Scaffolding project! 🚀 
+# Go + HTMX + Tailwind Scaffolding
 
-This project provides a solid starting point for web development using Go, HTMX, and Tailwind CSS. It comes pre-configured with essential files and settings to help you kickstart your projects quickly.
+Minimal starter for server-rendered Go apps with HTMX and Tailwind CSS.
 
-## Getting Started
-To begin a new project using this scaffolding, follow these steps:
+## What this scaffold includes
+- Go HTTP server with `gorilla/mux`
+- HTML templates in `web/templates/*.gohtmx`
+- Static asset serving from `web/assets`
+- Tailwind CSS build/watch scripts
+- Optional live-reload with Air
 
-Clone the Repository:
+## Requirements
+- Go 1.20+
+- Node.js 18+
 
+## Quick start
+1. Install frontend dependencies:
+   ```bash
+   npm install
+   ```
+2. Build Tailwind CSS once:
+   ```bash
+   npm run build:css
+   ```
+3. Run the Go app:
+   ```bash
+   go run .
+   ```
+4. Open [http://localhost:8080](http://localhost:8080)
 
-git clone https://github.com/davidkamere/mango.git
+## Development workflow
+Run these in separate terminals:
 
-Navigate to the Project Directory:
+1. Watch and rebuild CSS on template changes:
+   ```bash
+   npm run watch:css
+   ```
+2. Run Go live reload (requires Air):
+   ```bash
+   air
+   ```
 
-Install Dependencies:
+If you do not use Air, run:
+```bash
+go run .
+```
 
+## Structure
+- `main.go`: router, handlers, template rendering
+- `web/templates/base.gohtmx`: base layout + HTMX script + CSS include
+- `web/templates/index.gohtmx`: sample page
+- `web/assets/input.css`: Tailwind input file
+- `web/assets/build.css`: generated stylesheet
 
-
-## Features
-Go Web Server: A basic Go web server configured for your project.
-
-HTMX Integration: HTMX is pre-configured to enhance your web pages with dynamic behavior.
-
-Tailwind CSS: A utility-first CSS framework for styling your application.
-
-## Customization
-Feel free to customize this scaffolding to fit your project requirements. Update the HTML templates, add more routes, and expand the static assets as needed.
-
-## Contribution
-If you find any issues or have suggestions for improvement, please open an issue or submit a pull request. Contributions are welcome!
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Happy coding! 🚀
+## Notes
+- HTMX is loaded from CDN in `base.gohtmx`.
+- Generated CSS is served at `/assets/build.css`.
