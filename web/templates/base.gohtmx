@@ -1,26 +1,17 @@
-<!-- web/templates/base.gohtmx -->
 {{ define "base" }}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ block "title" . }}Default Title{{ end }}</title>
-
-    <!-- Include Tailwind CSS -->
-    <link rel="stylesheet" href="/assets/build.css">
-
-
-
-    <!-- Include HTMX script -->
-    <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"></script>
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ block "title" . }}HTMX Go Scaffolding{{ end }}</title>
+  <link rel="stylesheet" href="/assets/build.css">
+  <script src="/assets/vendor/htmx.min.js" defer></script>
 </head>
-<body class="">
-    <!-- Common body content -->
+<body class="bg-slate-50 text-slate-900">
+  <main class="mx-auto max-w-3xl p-6 md:p-10">
     {{ block "content" . }}{{ end }}
-   
+  </main>
 </body>
 </html>
 {{ end }}

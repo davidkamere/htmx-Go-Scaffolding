@@ -1,0 +1,20 @@
+{{ if . }}
+<ul class="space-y-2">
+  {{ range . }}
+  <li class="flex items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2">
+    <span class="text-sm text-slate-800">{{ .Title }}</span>
+    <button
+      class="rounded border border-red-200 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-50"
+      hx-delete="/tasks/{{ .ID }}"
+      hx-target="#task-list"
+      hx-swap="innerHTML"
+      hx-confirm="Delete this task?"
+    >
+      Delete
+    </button>
+  </li>
+  {{ end }}
+</ul>
+{{ else }}
+<p class="rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500">No tasks yet. Add one above.</p>
+{{ end }}

@@ -1,57 +1,76 @@
-# Go + HTMX + Tailwind Scaffolding
+# HTMX Go Scaffolding (v2)
 
-Minimal starter for server-rendered Go apps with HTMX and Tailwind CSS.
+Production-leaning starter for server-rendered Go apps with HTMX partial updates and Tailwind CSS.
 
-## What this scaffold includes
-- Go HTTP server with `gorilla/mux`
-- HTML templates in `web/templates/*.gohtmx`
-- Static asset serving from `web/assets`
-- Tailwind CSS build/watch scripts
-- Optional live-reload with Air
+## Included by default
+- Real HTMX CRUD flow (create/delete tasks with server-rendered partials)
+- `cmd` + `internal` project layout
+- Environment-based config (`PORT`, `APP_ENV`, `LOG_LEVEL`, `DB_PATH`)
+- Persistent file-backed storage by default (`./data/tasks.json`)
+- Middleware stack: security headers, panic recovery, request logging
+- Graceful shutdown on `SIGINT`/`SIGTERM`
+- Go tests and CI workflow
+- Dockerfile + docker-compose
+- Local vendored HTMX runtime (served from `/assets/vendor/htmx.min.js`)
+
+## Project layout
+- `cmd/server/main.go`: binary entrypoint
+- `internal/app`: app startup and graceful shutdown
+- `internal/server`: router and dependency wiring
+- `internal/handlers`: HTTP handlers and template rendering
+- `internal/tasks`: persistent task repository
+- `internal/config`: env config loading
+- `internal/middleware`: common middleware
+- `internal/templates`: template discovery/parser
+- `web/templates`: HTML templates and HTMX partials
+- `web/assets`: Tailwind input/output and vendor JS
 
 ## Requirements
 - Go 1.20+
 - Node.js 18+
 
 ## Quick start
-1. Install frontend dependencies:
-   ```bash
-   npm install
-   ```
-2. Build Tailwind CSS once:
-   ```bash
-   npm run build:css
-   ```
-3. Run the Go app:
-   ```bash
-   go run .
-   ```
-4. Open [http://localhost:8080](http://localhost:8080)
-
-## Development workflow
-Run these in separate terminals:
-
-1. Watch and rebuild CSS on template changes:
-   ```bash
-   npm run watch:css
-   ```
-2. Run Go live reload (requires Air):
-   ```bash
-   air
-   ```
-
-If you do not use Air, run:
 ```bash
-go run .
+cp .env.example .env
+npm install
+npm run build:css
+npm run build:vendor
+go run ./cmd/server
 ```
 
-## Structure
-- `main.go`: router, handlers, template rendering
-- `web/templates/base.gohtmx`: base layout + HTMX script + CSS include
-- `web/templates/index.gohtmx`: sample page
-- `web/assets/input.css`: Tailwind input file
-- `web/assets/build.css`: generated stylesheet
+Open: [http://localhost:8080](http://localhost:8080)
+
+## Common commands
+```bash
+make deps       # npm install
+make css        # build css + vendor htmx
+make run        # run server
+make test       # go test ./...
+make vet        # go vet ./...
+make fmt        # format Go files
+make ci         # CI-equivalent local check
+```
+
+## Dev workflow
+Terminal 1:
+```bash
+npm run watch:css
+```
+
+Terminal 2:
+```bash
+air
+```
+
+## Docker
+```bash
+docker compose up --build
+```
+
+Open: [http://localhost:8080](http://localhost:8080)
+
+Data persists in `./data/tasks.json` via the mounted volume.
 
 ## Notes
-- HTMX is loaded from CDN in `base.gohtmx`.
-- Generated CSS is served at `/assets/build.css`.
+- This scaffold intentionally keeps rendering on the server side.
+- The data file and parent directory are auto-created at startup.

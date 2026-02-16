@@ -1,9 +1,37 @@
-<!-- web/templates/index.gohtmx -->
 {{ template "base" . }}
-{{ define "title" }}My App{{ end }}
+
+{{ define "title" }}HTMX Go Scaffolding{{ end }}
+
 {{ define "content" }}
-    <div class="flex justify-center items-center min-h-screen">
-        <h1 class="font-extrabold text-2xl mt-20">Hello My App!</h1>
-    </div>
-    <!-- Your specific content for this page goes here -->
+<section class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">HTMX Go Scaffolding</h1>
+    <p class="mt-2 text-sm text-slate-600">Reference CRUD flow: create and delete tasks with partial HTML updates.</p>
+  </header>
+
+  <form
+    class="mb-6 flex flex-col gap-3 sm:flex-row"
+    hx-post="/tasks"
+    hx-target="#task-list"
+    hx-swap="innerHTML"
+  >
+    <input
+      type="text"
+      name="title"
+      placeholder="Add a task"
+      class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none"
+      required
+    >
+    <button
+      type="submit"
+      class="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+    >
+      Add Task
+    </button>
+  </form>
+
+  <div id="task-list">
+    {{ template "task_list.gohtmx" .Tasks }}
+  </div>
+</section>
 {{ end }}

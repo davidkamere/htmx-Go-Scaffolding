@@ -1,5 +1,11 @@
-# Dependency directories
+# Node dependencies
 node_modules/
 
 # Local build artifacts
 tmp/
+
+# Local environment overrides
+.env
+
+# Local persisted data
+data/
